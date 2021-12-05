@@ -1,11 +1,11 @@
 ﻿#include <iostream>
 #include <cstring>
+#include <ctime>
 
 using namespace std;
 #define RANGE 255
 
 
-// функция с алгоритмом двоичного поиска 
 int Search_Binary(int arr[], int left, int right, int key)
 {
 	int midd = 0;
@@ -13,14 +13,14 @@ int Search_Binary(int arr[], int left, int right, int key)
 	{
 		midd = (left + right) / 2;
 
-		if (key < arr[midd])       // если искомое меньше значения в ячейке
-			right = midd - 1;      // смещаем правую границу поиска
-		else if (key > arr[midd])  // если искомое больше значения в ячейке
-			left = midd + 1;    // смещаем левую границу поиска
-		else                       // иначе (значения равны)
-			return midd;           // функция возвращает индекс ячейки
+		if (key < arr[midd])      
+			right = midd - 1;     
+		else if (key > arr[midd])  
+			left = midd + 1;   
+		else                       
+			return midd;           
 
-		if (left > right)          // если границы сомкнулись 
+		if (left > right)          
 			return -1;
 	}
 }
@@ -90,25 +90,19 @@ int str_len(char* str)
 int countSort(char Arr[])
 {
 	Arr[255];
-	// The output character array
-	// that will have sorted arr
+
 	char* output = new char[str_len(Arr)];
 
-	// Create a count array to store count of individual
-	// characters and initialize count array as 0
+
 	int count[RANGE + 1], i;
 	memset(count, 0, sizeof(count));
 
-	// Store count of each character
 	for (i = 0; Arr[i]; ++i)
 		++count[Arr[i]];
 
-	// Change count[i] so that count[i] now contains actual
-	// position of this character in output array
 	for (i = 1; i <= RANGE; ++i)
 		count[i] += count[i - 1];
 
-	// Build the output character array
 	for (i = 0; Arr[i]; ++i) {
 		output[count[Arr[i]] - 1] = Arr[i];
 		--count[Arr[i]];
@@ -122,6 +116,7 @@ int countSort(char Arr[])
 
 int insertionSort(int array[], int size) {
 	int buff = 0;
+
 	for (int i = 1; i < size; i++)
 	{
 		int j;
@@ -133,6 +128,7 @@ int insertionSort(int array[], int size) {
 
 		array[j + 1] = buff; // и поставим запомненный на его новое место 
 	}
+
 	return 1;
 }
 
@@ -140,13 +136,14 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 
-	const int SIZE = 5;
-	int size, date;
+	const int SIZE = 15;
+	long int size, date;
 	int array[SIZE] = {};
 	int key = 0, option;
 	int index = 0,lok=0; // индекс ячейки с искомым значением
-	bool lol = true;
-	while (lol == true)
+	bool keyOfWhile = true;
+	
+	while (keyOfWhile == true)
 	{
 		cout << "Введите вариант, с которым хотите работать\n";
 		cout << "\t\t1 - Двоичный поиск\n";
@@ -176,23 +173,18 @@ int main()
 					cout << endl << "Sorted character array is " << Arr << endl << "-----------";
 					
 				}
-
-				//		char Arr = "geeksforgeeks";
-
-						//countSort(Arr);
-
-						//cout << "Sorted character array is " << Arr;
 				return 0;
 			}
-			cout << "\t\t~|~\n\t\t |\nСколько переменных будет в массиве: ";
-			cin >> size;
+			//cout << "\t\t~|~\n\t\t |\nСколько переменных будет в массиве: ";
+			size = 15;
 			cout << endl;
-			for (int i = 0; i < size; i++) // заполняем и показываем массив
+			cout << "\t\t";
+			for (int i = 0; i < size; i++) 
 			{
-				cout << i + 1 << ".";
-				cin >> date;
-				array[i] = date;
-
+				//cout << i + 1 << ".";
+				//cin >> date;
+				array[i] =1 + rand()%10;
+				cout << " | " << array[i];
 			}
 
 		}
@@ -212,10 +204,20 @@ int main()
 			continue;
 		}
 		if (option == 2) {
+			time_t end;
 			quickSort(array, 0, size - 1);
+			keyOfWhile = false;
+			end = clock();
+			cout << "Time: " << end / 1000.0 << endl;
 		}
 		if (option == 3) {
+			time_t end;
+
+				keyOfWhile = false;
+			
 			insertionSort(array, size);
+			end = clock();
+			cout << "Time: " << end/1000.0 << endl;
 		}
 		if (option == 5) {
 			bogoSort(array, size);
@@ -226,5 +228,7 @@ int main()
 		}
 		cout << " |" << endl << endl;
 	}
+
+
 	return 0;
 }

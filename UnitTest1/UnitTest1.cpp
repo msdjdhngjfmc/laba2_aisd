@@ -65,7 +65,7 @@ namespace UnitTest1
 					continue;
 				}
 				
-				Arr[i] = rand() % 10;
+				Arr[i] = rand() % 100;
 
 			}
 			index = Search_Binary(Arr, 0, SIZE, 6);
